@@ -1,31 +1,24 @@
 # EX 4D DYNAMIC PROGRAMMING – 4
+## DATE:
 ## AIM:
 To find the minimum number of operations to convert str1 to str2 using Naive recursive method.
 
-## Algorithm  
 
-1. Define a recursive function `LD(s, t)` to calculate the minimum edit distance between strings `s` and `t`.  
-2. If string `s` is empty, return the length of `t` (insert all characters of `t`).  
-3. If string `t` is empty, return the length of `s` (delete all characters of `s`).  
-4. If the last characters of `s` and `t` are the same, set `cost = 0`, else `cost = 1`.  
-5. Recursively calculate the minimum of three options:  
-   - Insert operation: `LD(s, t[:-1]) + 1`  
-   - Delete operation: `LD(s[:-1], t) + 1`  
-   - Replace/match operation: `LD(s[:-1], t[:-1]) + cost`  
-6. Return the minimum of the three computed values.  
-7. Take input strings `str1` and `str2` from the user.  
-8. Print the computed edit distance between `str1` and `str2` using the `LD` function.  
+## Algorithm
+1. If one string is empty, return the length of the other string.
+2. If the last characters of both strings match, the cost is 0; else, cost is 1.
+3. Recursively calculate three options: insert, delete, or replace a character.
+4. Take the minimum of the three operations plus the current cost.
+5. Final result is the minimum number of edits needed to convert one string into another.  
 
 ## Program:
 ```
-/*
-Program to implement to find the minimum number of operations to convert str1 to str2 using Naive recursive method.
-Developed by: PRAVEENKUMAR S
+Developed by: Praveen Kumar S
 Register Number: 212222230108
-*/
 ```
-```python
+```py
 def LD(s, t):
+    
     if s == "":
         return len(t)
     if t == "":
@@ -36,15 +29,17 @@ def LD(s, t):
         cost = 1
     res = min([LD(s[:-1], t)+1, LD(s, t[:-1])+1, LD(s[:-1], t[:-1]) + cost])
     return res
-    
 str1=input()
 str2=input()
 print('Edit Distance',LD(str1,str2))
 ```
+
 ## Output:
 
-![image](https://github.com/user-attachments/assets/f24c041c-2949-47c1-b2f6-294db6b9a0b4)
+![22d](https://github.com/user-attachments/assets/c0950bc0-fc03-4f3c-956a-5b6b72110bb9)
+
 
 
 ## Result:
+
 Thus the program was executed successfully for finding edit distance between two strings.
