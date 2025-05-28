@@ -1,40 +1,34 @@
 # EX 4C DYNAMIC PROGRAMMING – 3
+## DATE:
 ## AIM:
 Given a sequence, find the length of the longest palindromic subsequence in it.
 
-## Algorithm:  
+## Algorithm:
+1. Take the input string and reverse it.
+2. Compare both strings using dynamic programming to find matching characters.
+3. If characters match, increase the length by 1 and move diagonally.
+4. If not matching, move in the direction where maximum length is found (left or up).
+5. Final answer is the length of the longest palindromic subsequence.
 
-1. Initialize a 2D list `dp[1001][1001]` with all values set to -1 for memoization.  
-2. Define function `lps(s1, s2, n1, n2)` to compute the longest common subsequence between `s1` and `s2`.  
-3. If either `n1` or `n2` is 0, return 0 (base case for recursion).  
-4. If `dp[n1][n2]` is already computed, return its value to avoid recomputation.  
-5. If `s1[n1 - 1] == s2[n2 - 1]`, set `dp[n1][n2] = 1 + lps(s1, s2, n1 - 1, n2 - 1)` and return it.  
-6. Else, set `dp[n1][n2] = max(lps(s1, s2, n1 - 1, n2), lps(s1, s2, n1, n2 - 1))` and return it.  
-7. Take user input as `seq` and assign `n = len(seq)`.  
-8. Create a reversed version of `seq` as `s2 = seq[::-1]`.  
-9. Call `lps(s2, seq, n, n)` to compute the LPS length.  
-10. Print the result as the length of the Longest Palindromic Subsequence.  
+ 
 
 ## Program:
 ```
-/*
-Program to implement to find the length of the longest palindromic subsequence in it.
-Developed by: PRAVEENKUMAR S
+Developed by: Praveen Kumar S
 Register Number: 212222230108
-*/
 ```
-```python
+```
 dp = [[-1 for i in range(1001)]for j in range(1001)]
-def lps(s1, s2, n1, n2):
-    if (n1 == 0 or n2 == 0):
-        return 0
-    if (dp[n1][n2] != -1):
-        return dp[n1][n2]
-    if (s1[n1 - 1] == s2[n2 - 1]):
-        dp[n1][n2] = 1 + lps(s1, s2, n1 - 1, n2 - 1)
-        return dp[n1][n2]
-    else:
-        dp[n1][n2] = max(lps(s1, s2, n1 - 1, n2), lps(s1, s2, n1, n2 - 1))
+def lps(s1, s2, n1, n2):   
+    if (n1 == 0 or n2 == 0):       
+        return 0    
+    if (dp[n1][n2] != -1):      
+        return dp[n1][n2]    
+    if (s1[n1 - 1] == s2[n2 - 1]):       
+        dp[n1][n2] = 1 + lps(s1, s2, n1 - 1, n2 - 1)       
+        return dp[n1][n2]    
+    else:      
+        dp[n1][n2] = max(lps(s1, s2, n1 - 1, n2), lps(s1, s2, n1, n2 - 1))      
         return dp[n1][n2]
 seq = input()
 n = len(seq)
@@ -45,8 +39,8 @@ print(f"The length of the LPS is",lps(s2, seq, n, n))
 
 ## Output:
 
-![image](https://github.com/user-attachments/assets/ae23f211-8f91-4a3c-a183-9c5b5a52fc77)
-
+![22c](https://github.com/user-attachments/assets/525964e1-5bbc-4e5e-b69b-58b8b54fc24a)
 
 ## Result:
+
 Thus the program was executed successfully for finding the length of longest palindromic string.
