@@ -1,52 +1,59 @@
 # EX 4A DYNAMIC PROGRAMMING - 1
+## DATE:
 ## AIM:
 To find longest common subsequence using Dynamic Programming.
 
 ## Algorithm:
-
-1. Define function `lcs(str1, str2)` to find the length of the Longest Common Subsequence.  
-2. Get the lengths `m` and `n` of the two input strings.  
-3. Create a 2D list `matrix` of size `(m+1) x (n+1)` initialized with zeros.  
-4. Loop through all indices `i` from 0 to `m` and `j` from 0 to `n`.  
-5. If `i == 0` or `j == 0`, set `matrix[i][j] = 0` (base case of empty substring).  
-6. If characters `str1[i-1] == str2[j-1]`, set `matrix[i][j] = 1 + matrix[i-1][j-1]`.  
-7. Otherwise, set `matrix[i][j] = max(matrix[i-1][j], matrix[i][j-1])`.  
-8. After filling the matrix, return the value at `matrix[m][n]` which is the LCS length.  
-9. Read two input strings `str1` and `str2` from the user.  
-10. Call the `lcs` function and store the result in `lcs_length`.  
-11. Print the LCS length using formatted output.  
+1. Create a table c where each cell stores the LCS length for parts of u and v.
+2. Fill the table from the end of both strings towards the start.
+3. If characters match, add 1 to the LCS length; else take the maximum of two possible moves.
+4. Start from the beginning and move through c to reconstruct one LCS.
+5. Print the matching characters along the path.  
 
 ## Program:
 ```
-/*
-Program to implement the longest common subsequence using Dynamic Programming.
-Developed by: PRAVEENKUMAR S
-Register Number: 212222230108
-*/
+Developed by: Praveen Kumar S
+Register Number: 212222230108 
 ```
-```python
-def lcs(str1 , str2):
-    m = len(str1)
-    n = len(str2)
-    matrix = [[0]*(n+1) for i in range(m+1)] 
-    for i in range(m+1):
-        for j in range(n+1):
-            if i==0 or j==0:
-                matrix[i][j] = 0
-            elif str1[i-1] == str2[j-1]:
-                matrix[i][j] = 1 + matrix[i-1][j-1]
+```py
+def lcs(u, v):
+    c = [[-1]*(len(v) + 1) for _ in range(len(u) + 1)]
+    for i in range(len(u) + 1):
+        c[i][len(v)] = 0
+    for j in range(len(v)):
+        c[len(u)][j] = 0
+ 
+    for i in range(len(u) - 1, -1, -1):
+        for j in range(len(v) - 1, -1, -1):
+            if u[i] == v[j]:
+                c[i][j] = 1 + c[i + 1][j + 1]
             else:
-                matrix[i][j] = max(matrix[i-1][j] , matrix[i][j-1])
-    return matrix[-1][-1]
-str1 = input()
-str2 = input()
-lcs_length = lcs(str1, str2)
-print("Length of LCS is : {}".format(lcs_length))
+                c[i][j] = max(c[i + 1][j], c[i][j + 1])
+    return c
+ 
+def print_lcs(u, v, c):
+    i = j = 0
+    while not (i == len(u) or j == len(v)):
+        if u[i] == v[j]:
+            print(u[i], end='')
+            i += 1
+            j += 1
+        elif c[i][j + 1] > c[i + 1][j]:
+            j += 1
+        else:
+            i += 1
+ 
+u = input()
+v = input()
+c = lcs(u, v)
+print_lcs(u, v, c)
 ```
 
 ## Output:
 
-![image](https://github.com/user-attachments/assets/facbdfbb-b37c-4460-9f84-e37c55b6e251)
+![22a](https://github.com/user-attachments/assets/d1f45e7b-55a8-4439-8060-3665a5068d3f)
+
+
 
 ## Result:
 Thus the program was executed successfully for computing the length of longest common subsequence.
